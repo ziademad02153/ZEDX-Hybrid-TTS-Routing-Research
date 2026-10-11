@@ -1,0 +1,23 @@
+﻿{
+  "pricing": {
+    "elevenlabs_per_char": 0.00008,
+    "piper_per_char": 0
+  },
+  "circuit_breaker": {
+    "strikes": 5,
+    "window_sec": 30,
+    "cooldown_sec": 30,
+    "_selection_rationale": "5/30/30 chosen for Availability priority (W_Avail=4.1182). Not globally optimal: 10/60/60 achieves W_Quality=4.2143 and W_Economy=4.0672. See sensitivity_results_v3.csv.",
+    "_data_split": "runIndex=1 used for CB tuning only. runIndex=2..5 used for evaluation. Prevents Tuning/Test Leakage.",
+    "_architecture_note": "Piper is used while CB is OPEN (routed directly) or as hard-failure fallback. HALF-OPEN sends a recovery probe to ElevenLabs only; if probe succeeds CB returns CLOSED, if probe fails CB returns OPEN."
+  },
+  "fault_injection": {
+    "elevenlabs_failure_rate": 0.05
+  },
+  "workload": {
+    "short_ratio": 0.7,
+    "medium_ratio": 0.2,
+    "long_ratio": 0.1
+  },
+  "_architecture_note": "Adaptive is a Fault-Resilience Router only. Routes to Piper via CB OPEN on hard failures. HALF-OPEN routes solely to ElevenLabs as a probe. No latency routing."
+}

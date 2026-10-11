@@ -1,0 +1,15 @@
+=== ZEDX-TTS V12 FINAL EVALUATION EXECUTION LOG ===
+Command: node simulator/run_final_v12.js
+Start Time: 2026-10-04T11:05:53.336Z
+End Time:   2026-10-04T11:09:08.144Z
+Duration:   194.81 seconds
+Total Policy-Level Evaluations: 30000000 (6 scenarios x 5 policies x 100 seeds x 10,000 reqs)
+Seeds Evaluated: 1..100 (100 independent seeds)
+Workload Requests Total: 6,000,000 requests (6 scenarios x 100 seeds x 10,000 reqs)
+Trace Split: runIndex 2..5 (192 paired traces: 32 short, 32 medium, 32 long; 0 discarded)
+Config Split: runIndex 1 (frozen; tuning/test separation strictly enforced)
+Evaluation Split: runIndex 2..5 (held-out test set)
+Node Version: v22.12.0
+Platform: win32 x64
+All Invariant Checks Passed: true
+=====================================================

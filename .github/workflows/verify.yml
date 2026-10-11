@@ -1,0 +1,17 @@
+name: Verify frozen research artifacts
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: npm run verify
+      - run: python analysis/mos_statistics.py
+      - run: python analysis/paired_statistics.py
+      - run: npm run reproduce

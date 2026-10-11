@@ -1,0 +1,109 @@
+{
+  "generatedAt": "2026-10-04T11:09:08.142Z",
+  "runDescription": "100 seeds x 10,000 requests (Extended Baseline and Robustness Final Evaluation)",
+  "experimentSize": {
+    "scenarios": 6,
+    "policies": 5,
+    "seeds": 100,
+    "requestsPerSeed": 10000,
+    "workloadRequestsTotal": 6000000,
+    "policyLevelEvaluationsTotal": 30000000,
+    "note": "Same workload used for all 5 policies per seed. Policy-level evaluations are NOT independent observations."
+  },
+  "traceInfo": {
+    "runIndexUsed": "2..5",
+    "runIndex1Used": false,
+    "pairedPairs": {
+      "short": 32,
+      "medium": 32,
+      "long": 32
+    },
+    "discardedBlocks": 0
+  },
+  "cbParameters": {
+    "strikes": 5,
+    "windowSec": 30,
+    "cooldownSec": 30
+  },
+  "baselineFixedParameters": {
+    "piperFailRate": 0,
+    "qMin": 4,
+    "cloudPenaltyMs": 1000
+  },
+  "enhancedInvariantChecks": {
+    "no_nan_or_infinity": {
+      "passed": true,
+      "count": 0
+    },
+    "row_count": {
+      "passed": true,
+      "expected": 3000,
+      "actual": 3000
+    },
+    "no_duplicate_rows": {
+      "passed": true,
+      "duplicates": 0
+    },
+    "success_rate_bounds": {
+      "passed": true,
+      "outOfBounds": 0
+    },
+    "piper_usage_and_qvr_bounds": {
+      "passed": true,
+      "outOfBounds": 0
+    },
+    "cost_non_negative": {
+      "passed": true,
+      "count": 0
+    },
+    "adaptive_piper_count_identity": {
+      "passed": true,
+      "mismatches": 0,
+      "identity": "finalPiperCount == directHardFailureFallbacks + circuitBreakerFallbacks (100% match across all 600 Adaptive seeds)"
+    },
+    "cwpf_cloud_fails_eq_fallbacks": {
+      "passed": true,
+      "mismatches": 0
+    },
+    "piper_fail_0_full_success_non_cloudonly": {
+      "passed": true,
+      "failedRows": 0
+    },
+    "utility_mos_identity": {
+      "passed": true,
+      "mismatches": 0
+    },
+    "qmin_does_not_affect_routing": {
+      "passed": true,
+      "mismatches": 0,
+      "note": "Q_min changes QVR classification only. Routing decisions, success rate, cost, and piper usage unaffected."
+    },
+    "same_workload_all_policies": {
+      "passed": true,
+      "groups_with_hash_mismatch": 0,
+      "note": "Workload hash matches identically across all 5 policies for each seed."
+    },
+    "_summary": {
+      "totalChecks": 12,
+      "passed": 12,
+      "failed": 0,
+      "allPassed": true
+    }
+  },
+  "scientificLanguageCommitments": {
+    "cloudPenaltyMsNote": "cloudPenaltyMs (500/1000/2000ms) is an assumption in Sensitivity Analysis, NOT a measured timeout from real system traces.",
+    "qMinNote": "Q_min changes QVR classification and calculation only. Routing decisions and provider selection are unaffected.",
+    "circuitBreakerStatement": "The circuit-breaker policy reduced repeated failed calls to an unavailable cloud dependency under the evaluated simulated conditions.",
+    "tradeoffSummary": [
+      "1. CloudWithPerRequestFallback retained slightly higher conditional quality, whereas Adaptive reduced failed cloud attempts during the simulated 60-second outage, at the cost of slightly greater local fallback usage and quality-threshold violations.",
+      "2. Circuit Breaker reduces repeated failed calls to the cloud dependency and may reduce cost during outages.",
+      "3. When Piper fails (piperFailRate > 0), SuccessRate falls below 100%; results are evaluated as Robustness Sensitivity, not an Availability guarantee."
+    ],
+    "prohibitedTermsAvoided": [
+      "API hammering",
+      "cascading failures",
+      "IP blocking",
+      "proves superiority"
+    ]
+  }
+}

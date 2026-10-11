@@ -1,0 +1,15 @@
+{
+  "name": "zedx-hybrid-tts-routing-research",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Trace-driven research reproducibility materials",
+  "scripts": {
+    "simulate": "node simulator/run_final_v12.js",
+    "verify": "node tests/verify.js",
+    "reproduce": "node tests/reproduce.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {}
+}
